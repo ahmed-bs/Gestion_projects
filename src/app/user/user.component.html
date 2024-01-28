@@ -1,134 +1,247 @@
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
-  <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
+    <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
       <ol class="breadcrumb">
+        <i class="fas fa-filter"></i>
       </ol>
-  </nav>
-  <div role="toolbar" class="btn-toolbar">
-  <div role="group" class="btn-group">
-          <button id="tooltipAddNew" class="align-self-center btn btn-primary"><i class="fa-fw fa fa-plus"></i></button>
+    </nav>
+    <div role="toolbar" class="btn-toolbar">
+      <div role="group" class="btn-group">
+        <button id="tooltipAddNew" class="align-self-center btn btn-primary" data-toggle="modal"
+          data-target="#AddModal"><i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+    <br>
+  </div>
+<div class="container">
+  
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="">
+              <div class="table-responsive">
+                  <table class="table project-list-table table-nowrap align-middle table-borderless">
+                      <thead>
+                          <tr>
+                              <th scope="col" class="ps-4" style="width: 50px;">
+                                  <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
+                              </th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Role</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Team</th>
+                              <th scope="col" style="width: 200px;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let user of listUser">
+                              <th scope="row" class="ps-4">
+                                  <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
+                              </th>
+                              <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body"><td>{{user.username}}</a></td>
+                              <td><span class="badge badge-soft-primary mb-0"><td>{{user.username}}</span></td>
+                              <td>{{user.email}}</td>
+                              
+                              <td>125</td>
+                              <td>
+                                  <ul class="list-inline mb-0">
+                                      <li class="list-inline-item">
+                                          <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                                      </li>
+                                       <!-- Edit button icon -->
+                                      <li class="list-inline-item">
+                                        <button class="btn btn-sm btn-primary mr-2"  data-toggle="modal"
+                                        data-target="#EditModal" (click)="openEditModel(user)">
+                                          <i class="fa fa-edit"></i>
+                                        </button>
+                                      </li>
+                                       <!-- Delete button icon -->
+                                      <li class="list-inline-item"                      >
+                                        <button class="btn btn-sm btn-danger" (click)="DeleteUser(user.id)">
+                                            <i class="fa fa-trash"></i> Delete
+                                          </button>
+                                      </li>
+                                     
+                                  </ul>
+                                  
+                              </td>
+                          </tr>
+                          
+                      </tbody>
+                  </table>
+              </div>
+          </div>
       </div>
   </div>
-  <br>
+  <div class="row g-0 align-items-center pb-4">
+      <div class="col-sm-6">
+          <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
+      </div>
+      <div class="col-sm-6">
+          <div class="float-sm-end">
+              <ul class="pagination mb-sm-0">
+                  <li class="page-item disabled">
+                      <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                  </li>
+                  <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">4</a></li>
+                  <li class="page-item"><a href="#" class="page-link">5</a></li>
+                  <li class="page-item">
+                      <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+  </div>
 </div>
-<div class="card">
-  <div class="tab-content p-4">
-    <div class="container">
-      <div class="row">
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Table heading</th>
-                <th>Table heading</th>
-                <th>Table heading</th>
-                <th>Table heading</th>
-                <th>Table heading</th>
-                <th>Table heading</th>
-              </tr>
-            </thead>
-            <tbody id="myTable">
-              <tr>
-                <td>1</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr class="success">
-                <td>5</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-               <tr>
-                <td>8</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-            </tbody>
-          </table>   
+
+<!------------------------------------------ Modal ADD ------------------------------------------------------->
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">User</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="userName">
+              <b> User Name</b>
+            </label>
+            <input type="text" class="form-control" id="userName" [(ngModel)]="newUser.username"
+              placeholder="Enter User Name">
+            <br>
+            <label for="firstName">
+                <b> User First Name</b>
+              </label>
+              <input type="text" class="form-control" id="firstName" [(ngModel)]="newUser.firstName"
+                placeholder="Enter User firstName">
+              <br>
+            <label for="lastName">
+                <b> User Last Name</b>
+              </label>
+              <input type="text" class="form-control" id="lastName" [(ngModel)]="newUser.lastName"
+                placeholder="Enter User lastName">
+              <br>
+            <label for="dateOfBirth">
+                <b> User date Of Birth</b>
+              </label>
+              <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="newUser.dateOfBirth"
+                placeholder="Enter User date Of Birth">
+              <br>
+            <!-- <label for="role">
+              <b> Role</b>
+            </label>
+            <input type="text" class="form-control" id="role" [(ngModel)]="newUser.roles.roleName"
+              placeholder="Enter user role"> -->
+              <label for="Email">
+                <b> Email</b>
+              </label>
+              <input type="text" class="form-control" id="Email" [(ngModel)]="newUser.email"
+                placeholder="Enter User Email">
+              <br>
+              <label for="password">
+                <b> password</b>
+              </label>
+              <input type="password" class="form-control" id="Email" [(ngModel)]="newUser.password"
+                placeholder="Enter User password">
+              <br>
+              <!-- <label for="Team">
+                <b> Team</b>
+              </label>
+              <input type="text" class="form-control" id="Team" [(ngModel)]="newUser.team"
+                placeholder="Enter User's Team"> -->
+              <br>
+          </div>
         </div>
-        <div class="col-md-12 text-center">
-        <ul class="pagination pagination-lg pager" id="myPager"></ul>
-        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="addUser()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
     </div>
   </div>
+</div>
 
 
-
-
+<!------------------------------------------ Modal Edit ------------------------------------------------------->
+<!------------------------------------------ Modal ADD ------------------------------------------------------->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Projects</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="userName">
+              <b> User Name</b>
+            </label>
+            <input type="text" class="form-control" id="userName" [(ngModel)]="newUser.username"
+              placeholder="Enter User Name">
+            <br>
+            <label for="firstName">
+                <b> User First Name</b>
+              </label>
+              <input type="text" class="form-control" id="firstName" [(ngModel)]="newUser.firstName"
+                placeholder="Enter User firstName">
+              <br>
+            <label for="lastName">
+                <b> User Last Name</b>
+              </label>
+              <input type="text" class="form-control" id="lastName" [(ngModel)]="newUser.lastName"
+                placeholder="Enter User lastName">
+              <br>
+            <label for="dateOfBirth">
+                <b> User date Of Birth</b>
+              </label>
+              <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="newUser.dateOfBirth"
+                placeholder="Enter User date Of Birth">
+              <br>
+            <!-- <label for="role">
+              <b> Role</b>
+            </label>
+            <input type="text" class="form-control" id="role" [(ngModel)]="newUser.roles.roleName"
+              placeholder="Enter user role"> -->
+              <label for="Email">
+                <b> Email</b>
+              </label>
+              <input type="text" class="form-control" id="Email" [(ngModel)]="newUser.email"
+                placeholder="Enter User Email">
+              <br>
+              <label for="password">
+                <b> password</b>
+              </label>
+              <input type="password" class="form-control" id="Email" [(ngModel)]="newUser.password"
+                placeholder="Enter User password">
+              <br>
+              <!-- <label for="Team">
+                <b> Team</b>
+              </label>
+              <input type="text" class="form-control" id="Team" [(ngModel)]="newUser.team"
+                placeholder="Enter User's Team"> -->
+              <br>
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="addUser()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
   </div>
 </div>
