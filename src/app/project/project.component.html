@@ -45,11 +45,12 @@
                 </div>
                 <div class="button-group">
                   <!-- Edit button icon -->
-                  <button class="btn btn-sm btn-primary mr-2">
+                  <button class="btn btn-sm btn-primary mr-2"  data-toggle="modal"
+                  data-target="#EditModal" (click)="openEditModel(prj)">
                     <i class="fa fa-edit"></i> Edit
                   </button>
                   <!-- Delete button icon -->
-                  <button class="btn btn-sm btn-danger">
+                  <button class="btn btn-sm btn-danger" (click)="DeleteProject(prj.id)">
                     <i class="fa fa-trash"></i> Delete
                   </button>
                 </div>
@@ -74,7 +75,7 @@
 
 
 
-<!-- Modal ADD -->
+<!------------------------------------------ Modal ADD ------------------------------------------------------->
 <div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
   style="max-width: 80%; zoom: 70%;">
   <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
@@ -113,5 +114,42 @@
 </div>
 
 
+<!------------------------------------------ Modal Edit ------------------------------------------------------->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Projects</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="projectName">
+              <b> Project Name</b>
+            </label>
+            <input type="text" class="form-control" id="projectName" [(ngModel)]="newProject.projectName"
+              placeholder="Enter Project Name">
+            <br>
+            <label for="description">
+              <b> Description</b>
+            </label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="newProject.description"
+              placeholder="Enter Description">
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="editProject()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
