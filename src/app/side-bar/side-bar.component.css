@@ -1,0 +1,9 @@
+.sidebar {
+    background: linear-gradient(to left, #224abe, #4e73df, #224abe);
+}
+
+.sidebar .sidebar-brand {
+    background: linear-gradient(to right, #224abe, #4e73df, #224abe);
+}
+
+/* Add more styles as needed */

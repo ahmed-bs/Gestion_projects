@@ -12,6 +12,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProjectComponent } from './project/project.component';
 import { UserComponent } from './user/user.component';
 import { TeamComponent } from './team/team.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [					
@@ -28,6 +30,8 @@ import { TeamComponent } from './team/team.component';
       UserComponent
    ],
   imports: [
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],

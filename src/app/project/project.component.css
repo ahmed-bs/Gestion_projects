@@ -142,3 +142,9 @@ body{
 .bg-gray {
     background: #ced4da !important
 }
+
+.with-border {
+    border: 1px solid #ccc; /* You can adjust the color and width as needed */
+    border-radius: 8px; /* Optional: Add border-radius for rounded corners */
+    padding: 15px; /* Optional: Add padding for space between the border and content */
+  }

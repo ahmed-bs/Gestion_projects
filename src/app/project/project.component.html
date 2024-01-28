@@ -1,12 +1,14 @@
 <div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
   <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-      </ol>
+    <ol class="breadcrumb">
+      <i class="fas fa-filter"></i>
+    </ol>
   </nav>
   <div role="toolbar" class="btn-toolbar">
-  <div role="group" class="btn-group">
-          <button id="tooltipAddNew" class="align-self-center btn btn-primary"><i class="fa-fw fa fa-plus"></i></button>
-      </div>
+    <div role="group" class="btn-group">
+      <button id="tooltipAddNew" class="align-self-center btn btn-primary" data-toggle="modal"
+        data-target="#AddModal"><i class="fa-fw fa fa-plus"></i></button>
+    </div>
   </div>
   <br>
 </div>
@@ -20,32 +22,96 @@
 
 
 
-<section class="projects no-padding-top">
-  <div class="container">
-    <!-- Project-->
-    <div class="project">
-      <div class="row bg-white has-shadow">
-        <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
-          <div class="project-title d-flex align-items-center">
-            <!-- <div class="image has-shadow"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="..." class="img-fluid"></div> -->
-            <div class="text">
-              <h3 class="h4">Project Title</h3><small>Lorem Ipsum Dolor</small>
+    <section class="projects no-padding-top" *ngIf="listProject && listProject.length > 0;else noData">
+      <div class="container">
+        <!-- Project-->
+        <ng-container *ngFor="let prj of listProject">
+          <div class="project">
+            <div class="row bg-white has-shadow with-border">
+              <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
+                <div class="project-title d-flex align-items-center">
+                  <div class="text">
+                    <h3 class="h4">{{prj.projectName}}</h3><small>{{prj.description}}</small>
+                  </div>
+                </div>
+
+              </div>
+              <div class="right-col col-lg-6 d-flex align-items-center">
+                <div class="project-progress">
+                  <div class="progress">
+                    <div role="progressbar" style="width: 45%; height: 6px;" aria-valuenow="25" aria-valuemin="0"
+                      aria-valuemax="100" class="progress-bar bg-red"></div>
+                  </div>
+                </div>
+                <div class="button-group">
+                  <!-- Edit button icon -->
+                  <button class="btn btn-sm btn-primary mr-2">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+                  <!-- Delete button icon -->
+                  <button class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i> Delete
+                  </button>
+                </div>
+              </div>
+              
             </div>
           </div>
-          <div class="project-date"><span class="hidden-sm-down">Today at 4:24 AM</span></div>
-        </div>
-        <div class="right-col col-lg-6 d-flex align-items-center">
-          <div class="time"><i class="fa fa-clock-o"></i>12:00 PM </div>
-          <div class="comments"><i class="fa fa-comment-o"></i>20</div>
-          <div class="project-progress">
-            <div class="progress">
-              <div role="progressbar" style="width: 45%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
-            </div>
-          </div>
-        </div>
+        </ng-container>
       </div>
-    </div>
+    </section>
+    
+    <ng-template #noData>
+      <div class="container">
+        <b style="color: black;">
+          No Data To Show
+        </b>
+      </div>
+    </ng-template>
 
   </div>
-  </section>   </div>
 </div>
+
+
+
+<!-- Modal ADD -->
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Projects</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="projectName">
+              <b> Project Name</b>
+            </label>
+            <input type="text" class="form-control" id="projectName" [(ngModel)]="newProject.projectName"
+              placeholder="Enter Project Name">
+            <br>
+            <label for="description">
+              <b> Description</b>
+            </label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="newProject.description"
+              placeholder="Enter Description">
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="addProject()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
