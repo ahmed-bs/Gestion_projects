@@ -22,7 +22,7 @@ newProject: Project = new Project();
     this.projectService.createProject(this.newProject).subscribe(
       data => {
         console.log('Project added successfully:', data);
-        this.listProject.push(this.newProject);
+        this.getAllProjects();;
         Swal.fire({
           icon: 'success',
           title: 'success !',
