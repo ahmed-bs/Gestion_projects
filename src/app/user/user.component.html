@@ -36,8 +36,8 @@
                               <th scope="row" class="ps-4">
                                   <div class="form-check font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck1" /><label class="form-check-label" for="contacusercheck1"></label></div>
                               </th>
-                              <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body"><td>{{user.username}}</a></td>
-                              <td><span class="badge badge-soft-primary mb-0"><td>{{user.username}}</span></td>
+                              <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="avatar-sm rounded-circle me-2" /><a href="#" class="text-body">{{user.username}}</a></td>
+                              <td><span class="badge badge-soft-primary mb-0">{{user.username}}</span></td>
                               <td>{{user.email}}</td>
                               
                               <td>125</td>
@@ -56,7 +56,7 @@
                                        <!-- Delete button icon -->
                                       <li class="list-inline-item"                      >
                                         <button class="btn btn-sm btn-danger" (click)="DeleteUser(user.id)">
-                                            <i class="fa fa-trash"></i> Delete
+                                            <i class="fa fa-trash"></i> 
                                           </button>
                                       </li>
                                      
@@ -113,25 +113,25 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <!-- Add form inputs for projectName and description -->
             <label for="userName">
-              <b> User Name</b>
+              <b>Name</b>
             </label>
             <input type="text" class="form-control" id="userName" [(ngModel)]="newUser.username"
               placeholder="Enter User Name">
             <br>
             <label for="firstName">
-                <b> User First Name</b>
+                <b>First Name</b>
               </label>
               <input type="text" class="form-control" id="firstName" [(ngModel)]="newUser.firstName"
                 placeholder="Enter User firstName">
               <br>
             <label for="lastName">
-                <b> User Last Name</b>
+                <b>Last Name</b>
               </label>
               <input type="text" class="form-control" id="lastName" [(ngModel)]="newUser.lastName"
                 placeholder="Enter User lastName">
               <br>
             <label for="dateOfBirth">
-                <b> User date Of Birth</b>
+                <b>date Of Birth</b>
               </label>
               <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="newUser.dateOfBirth"
                 placeholder="Enter User date Of Birth">
@@ -172,7 +172,6 @@
 
 
 <!------------------------------------------ Modal Edit ------------------------------------------------------->
-<!------------------------------------------ Modal ADD ------------------------------------------------------->
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
   style="max-width: 80%; zoom: 70%;">
   <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
@@ -189,25 +188,25 @@
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <!-- Add form inputs for projectName and description -->
             <label for="userName">
-              <b> User Name</b>
+              <b>Name</b>
             </label>
             <input type="text" class="form-control" id="userName" [(ngModel)]="newUser.username"
               placeholder="Enter User Name">
             <br>
             <label for="firstName">
-                <b> User First Name</b>
+                <b>First Name</b>
               </label>
               <input type="text" class="form-control" id="firstName" [(ngModel)]="newUser.firstName"
                 placeholder="Enter User firstName">
               <br>
             <label for="lastName">
-                <b> User Last Name</b>
+                <b>Last Name</b>
               </label>
               <input type="text" class="form-control" id="lastName" [(ngModel)]="newUser.lastName"
                 placeholder="Enter User lastName">
               <br>
             <label for="dateOfBirth">
-                <b> User date Of Birth</b>
+                <b>date Of Birth</b>
               </label>
               <input type="date" class="form-control" id="dateOfBirth" [(ngModel)]="newUser.dateOfBirth"
                 placeholder="Enter User date Of Birth">
@@ -218,13 +217,13 @@
             <input type="text" class="form-control" id="role" [(ngModel)]="newUser.roles.roleName"
               placeholder="Enter user role"> -->
               <label for="Email">
-                <b> Email</b>
+                <b>Email</b>
               </label>
               <input type="text" class="form-control" id="Email" [(ngModel)]="newUser.email"
                 placeholder="Enter User Email">
               <br>
               <label for="password">
-                <b> password</b>
+                <b>password</b>
               </label>
               <input type="password" class="form-control" id="Email" [(ngModel)]="newUser.password"
                 placeholder="Enter User password">
