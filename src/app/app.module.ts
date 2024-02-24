@@ -15,9 +15,11 @@ import { TeamComponent } from './team/team.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { Project_tasksComponent } from './project_tasks/project_tasks.component';
 
 @NgModule({
-  declarations: [					
+  declarations: [						
     AppComponent,
 
     NotFoundComponent,
@@ -28,13 +30,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TopBarComponent,
       ProjectComponent,
       TeamComponent,
-      UserComponent
+      Project_tasksComponent,
+      UserComponent,
    ],
   imports: [
     FormsModule,
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule,DragDropModule,
     BrowserAnimationsModule
   ],
   providers: [],

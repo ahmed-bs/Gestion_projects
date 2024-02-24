@@ -8,6 +8,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { ProjectComponent } from './project/project.component';
 import { TeamComponent } from './team/team.component';
 import { UserComponent } from './user/user.component';
+import { Project_tasksComponent } from './project_tasks/project_tasks.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserComponent,
+    canActivate : [AuthGuardService] 
+  },
+  {
+    path: 'tasks',
+    component: Project_tasksComponent,
     canActivate : [AuthGuardService] 
   },
   {
