@@ -40,7 +40,7 @@
                               <td><span class="badge badge-soft-primary mb-0">{{user.username}}</span></td>
                               <td>{{user.email}}</td>
                               
-                              <td>125</td>
+                              <td>{{user.team?.teamName}}</td>
                               <td>
                                   <ul class="list-inline mb-0">
                                       <li class="list-inline-item">
@@ -71,29 +71,7 @@
           </div>
       </div>
   </div>
-  <div class="row g-0 align-items-center pb-4">
-      <div class="col-sm-6">
-          <div><p class="mb-sm-0">Showing 1 to 10 of 57 entries</p></div>
-      </div>
-      <div class="col-sm-6">
-          <div class="float-sm-end">
-              <ul class="pagination mb-sm-0">
-                  <li class="page-item disabled">
-                      <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                  </li>
-                  <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                  <li class="page-item"><a href="#" class="page-link">2</a></li>
-                  <li class="page-item"><a href="#" class="page-link">3</a></li>
-                  <li class="page-item"><a href="#" class="page-link">4</a></li>
-                  <li class="page-item"><a href="#" class="page-link">5</a></li>
-                  <li class="page-item">
-                      <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                  </li>
-              </ul>
-          </div>
-      </div>
 
-  </div>
 </div>
 
 <!------------------------------------------ Modal ADD ------------------------------------------------------->
@@ -153,6 +131,12 @@
               <input type="password" class="form-control" id="Email" [(ngModel)]="newUser.password"
                 placeholder="Enter User password">
               <br>
+              <label for="Team">
+                <b> Team</b>
+              </label>
+              <select name="Team" id="Team"  class="form-control"  [(ngModel)]="newTeam" (ngModelChange)="this.getTeamById()">
+                <option *ngFor="let tem of teamList" [value]="tem.id">{{tem.teamName}}</option>
+              </select>
               <!-- <label for="Team">
                 <b> Team</b>
               </label>

@@ -1,28 +1,226 @@
+<div class="d-flex flex-column flex-md-row mb-3 mb-md-0">
+  <nav class="mr-auto d-flex align-items-center" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <i class="fas fa-arrow-left" (click)="goBack()"></i>
+    </ol>
+  </nav>
+  <div role="toolbar" class="btn-toolbar">
+    <div role="group" class="btn-group">
+      <button id="tooltipAddNew" class="align-self-center btn btn-primary" data-toggle="modal"
+        data-target="#AddModal"><i class="fa-fw fa fa-plus"></i></button>
+    </div>
+  </div>
+  <br>
+</div>
+
+<div class="flex-container">
+<!-- app.component.html -->
 <div class="example-container">
   <h2>To do</h2>
-
   <div
     cdkDropList
     #todoList="cdkDropList"
     [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
+    [cdkDropListConnectedTo]="[doingList, doneList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    <div class="example-box" *ngFor="let item of todo" cdkDrag>
+      <div class="task-title" (click)="viewTaskDetails(item)" data-toggle="modal" data-target="#showModal">{{ item.title }}</div>
+      <div class="icons-container">
+        <span class="icon" (click)="openEditModel(item)" data-toggle="modal" data-target="#AddModal"><i class="fas fa-edit"></i></span>
+        <span class="icon" (click)="deleteTask(item.id)"><i class="fas fa-trash-alt"></i></span>
+      </div>
+    </div>
   </div>
 </div>
 
+
+  <div class="example-container">
+    <h2>Doing</h2>
+    <div
+      cdkDropList
+      #doingList="cdkDropList"
+      [cdkDropListData]="doing"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of doing" cdkDrag >
+        <div class="task-title" (click)="viewTaskDetails(item)" data-toggle="modal" data-target="#showModal">{{ item.title }}</div>
+        <div class="icons-container">
+          <span class="icon" (click)="openEditModel(item)" data-toggle="modal" data-target="#AddModal"><i class="fas fa-edit"></i></span>
+          <span class="icon" (click)="deleteTask(item.id)"><i class="fas fa-trash-alt"></i></span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<!-- app.component.html -->
 <div class="example-container">
   <h2>Done</h2>
-
   <div
     cdkDropList
     #doneList="cdkDropList"
     [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
+    [cdkDropListConnectedTo]="[todoList, doingList]"
     class="example-list"
     (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    <div class="example-box" *ngFor="let item of done" cdkDrag  >
+      <div class="task-title" (click)="viewTaskDetails(item);" data-toggle="modal" data-target="#showModal">{{ item.title }}</div>
+      <div class="icons-container">
+        <span class="icon" (click)="openEditModel(item)" data-toggle="modal" data-target="#AddModal"><i class="fas fa-edit"></i></span>
+        <span class="icon" (click)="deleteTask(item.id)"><i class="fas fa-trash-alt"></i></span>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+
+<!------------------------------------------ Modal ADD ------------------------------------------------------->
+<div class="modal fade" id="AddModal" #editModal tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Tasks</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="projectName">
+              <b> Task Title</b>
+            </label>
+            <input type="text" class="form-control" id="projectName" [(ngModel)]="newProjectTask.title"
+              placeholder="Enter Task Title">
+            <br>
+            <label for="description">
+              <b> Description</b>
+            </label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="newProjectTask.description"
+              placeholder="Enter Description">
+              <br>
+              <label for="description">
+                <b> Due Date</b>
+              </label>
+              <input type="date" class="form-control" id="Date" [(ngModel)]="newProjectTask.dueDate"
+                placeholder="Enter Date">
+                <br>
+
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="addProjectTask()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!------------------------------------------ Modal Edit ------------------------------------------------------->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="AddModalLabel" aria-hidden="true"
+  style="max-width: 80%; zoom: 70%;">
+  <div class="modal-dialog" role="document" style="max-width: 50%; margin-left: 40%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Tasks</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="projectName">
+              <b> Tasks Title</b>
+            </label>
+            <input type="text" class="form-control" id="projectName" [(ngModel)]="newProjectTask.title"
+              placeholder="Enter Task Title">
+            <br>
+            <label for="description">
+              <b> Description</b>
+            </label>
+            <input type="text" class="form-control" id="description" [(ngModel)]="newProjectTask.description"
+              placeholder="Enter Description">
+              <br>
+              <label for="description">
+                <b> Due Date</b>
+              </label>
+              <input type="date" class="form-control" id="Date" [(ngModel)]="newProjectTask.dueDate"
+                placeholder="Enter Date">
+                <br>
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="editProjectTask()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!------------------------------------------ Modal Shiw ------------------------------------------------------->
+<div  class="modal fade my-modal" aria-hidden="true" id="showModal" aria-labelledby="showModal"  role="dialog"  #showModal>
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Tasks</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br />
+      <div class="modal-body" style="margin-top: -4%">
+        <div class="row gutters">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <!-- Add form inputs for projectName and description -->
+            <label for="projectName">
+              <b> Tasks Title</b>
+            </label>
+            <input type="text" class="form-control" id="projectName" [(ngModel)]="newProjectTask.title"
+              placeholder="Enter Task Title" disabled>
+            <br>
+            <label for="description">
+              <b> Description</b>
+            </label>
+            <input type="text" class="form-control" disabled id="description" [(ngModel)]="newProjectTask.description"
+              placeholder="Enter Description">
+              <br>
+              <label for="description">
+                <b> Due Date</b>
+              </label>
+              <input type="text" class="form-control" id="Date" disabled [(ngModel)]="newProjectTask.dueDate"
+                placeholder="Enter Date">
+                <br>
+          </div>
+        </div>
+        <br>       
+      </div>
+      <div class="modal-footer">
+        <button id="tooltipAddNew" class="btn btn-primary" (click)="editProjectTask()">Valider <i class="fa-fw fa fa-plus"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 

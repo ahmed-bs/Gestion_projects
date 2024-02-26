@@ -23,7 +23,7 @@ export class ProjectService {
 
 
   getProjectById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.baseUrl}/${id}`);
+    return this.http.get<Project>(`${this.baseUrl}/getById/${id}`);
   }
 
   createProject(project: Project): Observable<any> {

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 import { Project } from '../models/project';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Team } from '../models/team';
+import { TeamService } from '../services/team.service';
 declare var $: any;
 @Component({
   selector: 'app-project',
@@ -9,16 +12,31 @@ declare var $: any;
   styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-
+teamsList: Team[] = [];
 listProject: Project[] = []; 
 newProject: Project = new Project();
-  constructor(private projectService: ProjectService) {}
+newTeam!: number;
+  constructor(private projectService: ProjectService,private teamService: TeamService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.getAllProjects();
+    this.getAllTeams();
   }
 
-  addProject(): void {
+  getTeamById(){
+    this.teamService.getOneTeamById(this.newTeam).subscribe(   data => {
+      this.newProject.team  = data;
+    },
+    error => {
+      console.error(error);
+    }
+  )
+  }
+
+  async addProject(): Promise<void> {
+    console.log("this.newProject.",this.newProject);
+    
     this.projectService.createProject(this.newProject).subscribe(
       data => {
         console.log('Project added successfully:', data);
@@ -42,7 +60,16 @@ newProject: Project = new Project();
       }
     );
   }
-
+  getAllTeams() {
+    this.teamService.getAllTeams().subscribe(
+      data => {
+        this.teamsList = data;
+      },
+      error => {
+        console.error(error);
+      }
+    )
+  }
   getAllProjects() {
     this.projectService.getAllProjects().subscribe(
       data => {
@@ -83,6 +110,13 @@ openEditModel(project:Project)
       })
     }) 
   }
+
+  viewTaskDetails(project: Project): void {
+    const projectId = project.id;
+    localStorage.setItem('projectId', projectId.toString());
+    this.router.navigate(['/tasks']);
+  }
+
 
   DeleteProject(id:number): void {
     this.projectService.deleteProject(id).subscribe(

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
+import { Team } from '../models/team';
+import { TeamService } from '../services/team.service';
 declare var $: any;
 
 @Component({
@@ -12,11 +14,14 @@ declare var $: any;
 export class UserComponent implements OnInit {
   listUser: User[] = [];
   newUser: User = new User();
+  newTeam!:number;
+  teamList!:Team[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,private teamService:TeamService) { }
 
   ngOnInit(): void {
     this.getAllUser();
+    this.getAllTeam();
   }
 
   getAllUser() {
@@ -27,8 +32,29 @@ export class UserComponent implements OnInit {
       }
     )
   }
+  getAllTeam() {
+    this.teamService.getAllTeams().subscribe(
+      data => { this.teamList = data; },
+      error => {
+        console.error(error);
+      }
+    )
+  }
+getTeamById(){
+  console.log("this.newUser",this.newUser);
+  this.teamService.getOneTeamById(this.newTeam).subscribe(
+    data => {
+       this.newUser.team = data; },
+    error => {
+      console.error(error);
+    }
+  )
+}
+
 
   addUser(): void {
+    console.log("this.newUser",this.newUser);
+    
     this.userService.createUser(this.newUser).subscribe(
       data => {
         console.log('User Added succesfully:', data);

@@ -7,7 +7,7 @@ export class ProjectTask {
   description!: string;
   dueDate!: Date;
   state!: string;
-  project!: Project;
-  user!: User;
+  project?: Project;
+  user?: User;
 
 }
