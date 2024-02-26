@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuditLog } from '../models/audit_log';
+import { AuditLogService } from '../services/auditLog.service';
 
 @Component({
   selector: 'app-auditLog',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuditLogComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private serviceAuditLog:AuditLogService) { }
+  List:AuditLog[]=[];
   ngOnInit() {
+    this.getAuditLogs();
   }
-
+  getAuditLogs(): void {
+    this.serviceAuditLog.getAllAuditLogs()
+      .subscribe((logs: AuditLog[]) => {
+        this.List = logs;
+      });
+  }
 }
