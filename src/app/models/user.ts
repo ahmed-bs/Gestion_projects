@@ -12,7 +12,8 @@ export class User {
   firstName!: string;
   lastName!: string;
   dateOfBirth!: Date;
-  team!: Team;
+  team?: Team;
   roles!: Role[];
-
+//
+selected?: boolean;
 }

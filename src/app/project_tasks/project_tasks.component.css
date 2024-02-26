@@ -53,3 +53,29 @@
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
   
+  .flex-container {
+    display: flex;
+  }
+  
+  .example-container {
+    margin-right: 20px; /* Optional: Add some spacing between containers */
+  }
+  /* app.component.css or your global styles file */
+.example-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title {
+  flex-grow: 1;
+  margin-right: 10px; /* Adjust as needed for spacing between title and icons */
+}
+
+.icons-container {
+  display: flex;
+  gap: 5px; /* Adjust as needed for spacing between icons */
+}
+.icon {
+  cursor: pointer;
+}

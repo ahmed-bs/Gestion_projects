@@ -14,23 +14,28 @@ export class TeamComponent implements OnInit {
 
   listUser: User[] = [];
   teamList: Team[] = [];
+  selectedItems: User[] = [];
   newTeam: Team = new Team();
-
+ 
   constructor( private teamService: TeamService,private userService: UserService) { 
-    this.list = 
-    [
-      {name :'India',checked : false},
-      {name :'US',checked : false},
-      {name :'China',checked : false},
-      {name :'France',checked : false}
-    ]
   }
 
   ngOnInit() {
+    // this.newTeam.users=[];
     this.getAllTeams();
     this.getAllUser();
   }
+  updateList(item: User): void {
+    if (item.selected) {
+      this.selectedItems.push(item);
+      // this.newTeam.users.push(item);
+    } else {
+      this.selectedItems = this.selectedItems.filter((selectedItem) => selectedItem !== item);
+      // this.newTeam.users =  this.newTeam.users.filter((selectedItem) => selectedItem !== item);
+    }
 
+    console.log("urijsodc: ",this.newTeam);
+  }
 
   getAllTeams() {
     this.teamService.getAllTeams().subscribe(
@@ -53,39 +58,29 @@ export class TeamComponent implements OnInit {
   }
 
   addTeam(){
-    this.newTeam
-    console.log("this is wurt : ",this.newTeam)
-    // this.teamService.createTeam(this.newTeam).subscribe(
-    //   data => {
-    //     console.log('Team added successfully:', data);
-    //     this.getAllTeams();;
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'success !',
-    //       timer: 1500,
-    //       showConfirmButton: false,
-    //     })
-    //     $('#AddModal').modal('hide');
-    //   },
-    //   error => {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: error.error.message,
-    //       timer: 1500,
-    //       showConfirmButton: false,
-    //     })
-    //     console.error('Error adding Team:', error);
-    //   }
-    // );
-  }
-  list! : any[];
-  
 
-  shareCheckedList(item:any[]){
-    console.log(item);
-  }
-  shareIndividualCheckedList(item:{}){
-    console.log(item);
+    this.teamService.createTeam(this.newTeam).subscribe(
+      data => {
+        console.log('Team added successfully:', data);
+        this.getAllTeams();;
+        Swal.fire({
+          icon: 'success',
+          title: 'success !',
+          timer: 1500,
+          showConfirmButton: false,
+        })
+        $('#AddModal').modal('hide');
+      },
+      error => {
+        Swal.fire({
+          icon: 'error',
+          title: error.error.message,
+          timer: 1500,
+          showConfirmButton: false,
+        })
+        console.error('Error adding Team:', error);
+      }
+    );
   }
 
 }

@@ -17,9 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { Project_tasksComponent } from './project_tasks/project_tasks.component';
+import { AuditLogComponent } from './auditLog/auditLog.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [						
+  declarations: [							
     AppComponent,
 
     NotFoundComponent,
@@ -32,8 +34,10 @@ import { Project_tasksComponent } from './project_tasks/project_tasks.component'
       TeamComponent,
       Project_tasksComponent,
       UserComponent,
+      AuditLogComponent
    ],
   imports: [
+    CommonModule,
     FormsModule,
     HttpClientModule,
     BrowserModule,

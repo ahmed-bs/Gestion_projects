@@ -9,6 +9,7 @@ import { ProjectComponent } from './project/project.component';
 import { TeamComponent } from './team/team.component';
 import { UserComponent } from './user/user.component';
 import { Project_tasksComponent } from './project_tasks/project_tasks.component';
+import { AuditLogComponent } from './auditLog/auditLog.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'tasks',
     component: Project_tasksComponent,
+    canActivate : [AuthGuardService] 
+  },
+  {
+    path: 'auditLog',
+    component: AuditLogComponent,
     canActivate : [AuthGuardService] 
   },
   {

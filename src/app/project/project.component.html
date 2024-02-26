@@ -14,29 +14,22 @@
 </div>
 <div class="card">
   <div class="tab-content p-4">
-
-
-
-
-
-
-
-
     <section class="projects no-padding-top" *ngIf="listProject && listProject.length > 0;else noData">
       <div class="container">
         <!-- Project-->
         <ng-container *ngFor="let prj of listProject">
-          <div class="project">
+          <div class="project" >
             <div class="row bg-white has-shadow with-border">
-              <div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
+              <div class="left-col col-lg-6 d-flex align-items-center justify-content-between" (click)="viewTaskDetails(prj)">
                 <div class="project-title d-flex align-items-center">
                   <div class="text">
                     <h3 class="h4">{{prj.projectName}}</h3><small>{{prj.description}}</small>
                   </div>
                 </div>
-
+                <small>({{prj.team?.teamName}})</small>
               </div>
               <div class="right-col col-lg-6 d-flex align-items-center">
+      
                 <div class="project-progress">
                   <div class="progress">
                     <div role="progressbar" style="width: 45%; height: 6px;" aria-valuenow="25" aria-valuemin="0"
@@ -102,6 +95,13 @@
             </label>
             <input type="text" class="form-control" id="description" [(ngModel)]="newProject.description"
               placeholder="Enter Description">
+              <br>
+              <label for="Team">
+                <b> Team</b>
+              </label>
+              <select name="Team" id="Team"  class="form-control"  [(ngModel)]="newTeam" (ngModelChange)="this.getTeamById()">
+                <option *ngFor="let tem of teamsList" [value]="tem.id">{{tem.teamName}}</option>
+              </select>
           </div>
         </div>
         <br>       
@@ -141,6 +141,13 @@
             </label>
             <input type="text" class="form-control" id="description" [(ngModel)]="newProject.description"
               placeholder="Enter Description">
+              <br>
+              <label for="Team">
+                <b> Team</b>
+              </label>
+              <select name="Team" id="Team"  class="form-control"  [(ngModel)]="newTeam" (ngModelChange)="this.getTeamById()">
+                <option *ngFor="let tem of teamsList" [value]="tem.id">{{tem.teamName}}</option>
+              </select>
           </div>
         </div>
         <br>       
