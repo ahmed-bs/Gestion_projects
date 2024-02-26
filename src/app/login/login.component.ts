@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+username!:string;
+password!:string;
   constructor(
     private loginService : LoginService,
     private router: Router   
@@ -18,9 +19,19 @@ export class LoginComponent implements OnInit {
     this.loginService.logout();
   }
 
-  login(){
-    this.loginService.login();
-    this.router.navigate(['/']);    
+  login() {
+    this.loginService.login(this.username,this.password).subscribe(
+      () => {
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.error('Login failed:', error);
+      }
+    );
   }
+
+
+
+
 
 }

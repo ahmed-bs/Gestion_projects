@@ -8,8 +8,8 @@ declare var sb_admin_2:any;
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-
   constructor(
+    private loginService : LoginService,
     public login : LoginService
   ){
 
@@ -19,6 +19,19 @@ export class AppComponent implements OnInit{
     
     sb_admin_2();
     
+  }
+
+  onLogout() {
+    this.loginService.logout().subscribe(
+      () => {
+        // Additional logout logic if needed
+        // window.location.reload();
+      },
+      (error) => {
+        console.error('Logout failed:', error);
+        // Handle logout failure, show error message, etc.
+      }
+    );
   }
   
 }
