@@ -111,6 +111,7 @@ getProjectById(){
 
 
   addProjectTask(): void {
+    
     this.newProjectTask.state='to do'
     this.newProjectTask.project = this.project;
     this.projectTaskService.createProjectTask(this.newProjectTask).subscribe(
@@ -135,6 +136,7 @@ getProjectById(){
         console.error('Error adding project:', error);
       }
     );
+    this.newProjectTask= new ProjectTask();
   }
   openEditModel(newProjectTask:ProjectTask)
   {
@@ -161,6 +163,7 @@ getProjectById(){
         showConfirmButton: false,
       })
     }) 
+    this.newProjectTask= new ProjectTask();
   }
 
 
