@@ -59,6 +59,7 @@ newTeam!: number;
         console.error('Error adding project:', error);
       }
     );
+    this.newProject = new Project();
   }
   getAllTeams() {
     this.teamService.getAllTeams().subscribe(
@@ -109,6 +110,7 @@ openEditModel(project:Project)
         showConfirmButton: false,
       })
     }) 
+    this.newProject = new Project();
   }
 
   viewTaskDetails(project: Project): void {

@@ -58,7 +58,6 @@ export class TeamComponent implements OnInit {
   }
 
   addTeam(){
-
     this.teamService.createTeam(this.newTeam).subscribe(
       data => {
         console.log('Team added successfully:', data);
@@ -79,6 +78,47 @@ export class TeamComponent implements OnInit {
           showConfirmButton: false,
         })
         console.error('Error adding Team:', error);
+      }
+    );
+    this.newTeam = new Team();
+  }
+
+  updateTeam(id: number, updatedTeam: Team) {
+    this.teamService.updateTeam(id, updatedTeam).subscribe(
+      (team) => {
+        this.getAllTeams();;
+        Swal.fire({
+          icon: 'success',
+          title: 'success !',
+          timer: 1500,
+          showConfirmButton: false,
+        })
+        $('#AddModal').modal('hide');
+ 
+      },
+      (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: error.error.message,
+          timer: 1500,
+          showConfirmButton: false,
+        })
+        console.error('Error updating team:', error);
+      }
+    );
+    this.newTeam = new Team();
+  }
+
+  deleteTeam(id: number) {
+    this.teamService.deleteTeam(id).subscribe(
+      () => {
+        // Handle successful deletion (if needed)
+        console.log('Team deleted successfully');
+        // Refresh the teams after deleting
+        this.getAllTeams();
+      },
+      (error) => {
+        console.error('Error deleting team:', error);
       }
     );
   }
