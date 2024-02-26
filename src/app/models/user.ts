@@ -11,6 +11,7 @@ export class User {
   email!: string;
   firstName!: string;
   lastName!: string;
+  teamname!: string;
   dateOfBirth!: Date;
   team?: Team;
   roles!: Role[];
