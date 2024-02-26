@@ -4,6 +4,6 @@ export class AuditLog {
   id!: number;
   user!: User;
   action!: string;
-  timestamp!: Date;
+  timestamp?: Date;
 
 }
