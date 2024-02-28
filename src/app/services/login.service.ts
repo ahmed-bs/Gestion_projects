@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuditLogService } from './auditLog.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 export class LoginService {
   private apiUrl =environment.Api;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private serviceAuditLog:AuditLogService) { }
 
   get isLoggedIn(): boolean {
     // Check if the token is present and not expired
@@ -40,7 +41,9 @@ export class LoginService {
   logout(): Observable<any> {
 
       const token = localStorage.getItem('token');
-
+          // Clear local storage
+          localStorage.removeItem('token');
+          localStorage.removeItem('refreshToken');
       // Add appropriate headers or other data needed for the logout request
       const headers = {
         Authorization: `Bearer ${token}`
@@ -50,9 +53,7 @@ export class LoginService {
       // Send a POST request to the logout endpoint
       return this.http.post<any>(`${this.apiUrl}api/auth/signout`, {}, { headers })      .pipe(
         tap(() => {
-          // Clear local storage
-          localStorage.removeItem('token');
-          localStorage.removeItem('refreshToken');
+
         })
       );
     }

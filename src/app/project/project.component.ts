@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Team } from '../models/team';
 import { TeamService } from '../services/team.service';
+import { AuditLogService } from '../services/auditLog.service';
 declare var $: any;
 @Component({
   selector: 'app-project',
@@ -16,7 +17,7 @@ teamsList: Team[] = [];
 listProject: Project[] = []; 
 newProject: Project = new Project();
 newTeam!: number;
-  constructor(private projectService: ProjectService,private teamService: TeamService,
+  constructor(private projectService: ProjectService,private teamService: TeamService,private serviceAuditLog:AuditLogService,
     private router: Router) {}
 
   ngOnInit(): void {
@@ -38,9 +39,11 @@ newTeam!: number;
     console.log("this.newProject.",this.newProject);
     
     this.projectService.createProject(this.newProject).subscribe(
-      data => {
+      async data => {
+  
         console.log('Project added successfully:', data);
         this.getAllProjects();;
+       await this.serviceAuditLog.createAuditLog("created project");
         Swal.fire({
           icon: 'success',
           title: 'success !',
@@ -48,6 +51,7 @@ newTeam!: number;
           showConfirmButton: false,
         })
         $('#AddModal').modal('hide');
+        this.serviceAuditLog.createAuditLog("created project");
       },
       error => {
         Swal.fire({
@@ -95,6 +99,7 @@ openEditModel(project:Project)
   editProject(): void {
     this.projectService.updateProject(this.newProject).subscribe(data => {
       this.getAllProjects();
+
       Swal.fire({
         icon: 'success',
         title:'Modified !',
@@ -102,6 +107,7 @@ openEditModel(project:Project)
         showConfirmButton: false,
       })
       $('#EditModal').modal('hide');
+      this.serviceAuditLog.createAuditLog("updated project");
     },error=>{
       Swal.fire({
         icon: 'error',
@@ -123,6 +129,7 @@ openEditModel(project:Project)
   DeleteProject(id:number): void {
     this.projectService.deleteProject(id).subscribe(
       data => {
+   
         console.log('Project Deleted successfully:', data);
         Swal.fire({
           icon: 'success',
@@ -131,6 +138,7 @@ openEditModel(project:Project)
           showConfirmButton: false,
         })
         this.listProject = this.listProject.filter(project => project.id !== id);
+        this.serviceAuditLog.createAuditLog("deleted project");
       },
       error => {
         Swal.fire({
