@@ -23,7 +23,7 @@ export class ProjectService {
     return throwError('Something went wrong, please try again later.');
   }
 
-  constructor(private http: HttpClient,private serviceAuditLog:AuditLogService) { }
+  constructor(private http: HttpClient) { }
 
   getAllProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.baseUrl}/all`, this.httpOptions)
@@ -35,17 +35,16 @@ export class ProjectService {
   }
 
   createProject(project: Project): Observable<any> {
-    this.serviceAuditLog.createAuditLog("create project");
+ 
     return this.http.post(`${this.baseUrl}/save`, project, this.httpOptions);
   }
 
   updateProject(project: Project): Observable<any> {
-    this.serviceAuditLog.createAuditLog("update project");
+
     return this.http.put(`${this.baseUrl}/update/${project.id}`, project, this.httpOptions);
   }
 
   deleteProject(id: number): Observable<any> {
-    this.serviceAuditLog.createAuditLog("update delete");
     return this.http.delete(`${this.baseUrl}/delete/${id}`, this.httpOptions);
   }
 }

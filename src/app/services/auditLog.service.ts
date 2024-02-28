@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, audit } from 'rxjs';
+import { Observable, audit, catchError, throwError } from 'rxjs';
 import { AuditLog } from '../models/audit_log';
 import { environment } from 'src/environments/environment';
 
@@ -10,20 +10,28 @@ import { environment } from 'src/environments/environment';
 export class AuditLogService {
 
 
-  private baseUrl = environment.Api +'auditlogs'; 
-  auditLog!:AuditLog;
-  constructor(private http: HttpClient) { }
-  private user: string | null = localStorage.getItem('userName');
-  createAuditLog(msg: string): Observable<AuditLog> {
-    if (!this.user) {
-      // Handle user not found in localStorage
-      return new Observable<AuditLog>();
-    }
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError('Something went wrong, please try again later.');
+  }
 
-    const message = `${this.user} did ${msg} in ${(new Date().toString())}`;
+  private baseUrl = environment.Api +'auditlogs'; 
+  auditLog:AuditLog = new AuditLog() ;
+  message!:string ;
+  constructor(private http: HttpClient) { }
+   user!: string;
+  createAuditLog(msg: string): Observable<AuditLog> {
+    this.user = localStorage.getItem('userName')!; 
+
+    this.message = `${this.user} did ${msg} in ${(new Date().toString())}`;
     const headers = this.createHeaders();
 
-    return this.http.post<AuditLog>(`${this.baseUrl}/saveauditLogs`, this.auditLog, { headers });
+    this.auditLog.action =this.message || 'Amine did delete project ${(new Date().toString())}';
+    console.log("fjkdqssdffjfjfjfjfjfjfj",this.auditLog.action );
+    
+    return this.http.post<AuditLog>(`${this.baseUrl}/saveauditLogs`, this.auditLog, { headers }).pipe(
+      (catchError(this.handleError))
+    );
   }
 
   getAllAuditLogs(): Observable<AuditLog[]> {
